@@ -9,6 +9,7 @@
 		body {
 			margin-top: 50px;
 			background-color: #f2f2f2;
+			padding-left: 30px;
 		}
 
 		h1 {
@@ -49,6 +50,16 @@
 			font-weight: bold;
 		}
 
+		.form {
+			display: -webkit-flex;
+			-webkit-flex-direction: column;
+
+		}
+
+		.form, label {
+			padding-bottom: 10px;
+		}
+
 
 	</style>
 	<h1>Top Pot Donut Shop Totals</h1>
@@ -73,6 +84,19 @@
 	<p>The following table represents a program that generates the number of donuts
 	sold each hour at each Top Pot Donut location. The sums of each hour are expressed
 	in the "Total" column.</p>
+
+	<form class="form">
+		<label>Location Name <input type='text'></label>
+		<label>Min Customers Per Hour <input type='text' maxlength="10"></label>
+		<label>Avg Donuts Purchased Per Customer <input type='text'></label>
+	</form>
+	<button id="buttonUpdate">Update Table</button>
 	<script src="scripts.js"></script>
 </body>
 </html>
+
+
+
+
+
+
