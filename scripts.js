@@ -56,6 +56,28 @@ TopPotStore.prototype.render = function(store) {
 
 }
 
+// Updating the table
+// Step 1: Identify info you want to extract
+
+// Step 2:
+
+var newStore = function() {
+	var locInfo = document.getElementById('locationAdd').value;
+	var minCustAdd = document.getElementById('minCustAdd').value;
+	var maxCustAdd = document.getElementById('maxCustAdd').value;
+	var avgDonutsAdd = document.getElementById('avgDonutsAdd').value;
+	var newStoreObject = new TopPotStore(locInfo,parseInt(minCustAdd),parseInt(maxCustAdd),parseInt(avgDonutsAdd));
+	newStoreObject.donutsPerHour();
+	newStoreObject.totalDonuts(newStoreObject);
+	newStoreObject.render();
+	console.log(newStoreObject);
+}
+
+// Step 3: Event listener for Update button
+
+document.getElementById('buttonUpdate').addEventListener('click', newStore, false);
+
+
 // Store locations
 var downtown = new TopPotStore("Downtown", 8, 43, 4.50);
 downtown.donutsPerHour();
