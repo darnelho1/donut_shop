@@ -1,7 +1,5 @@
-// Create constructor function that models Top Pot Donut
-// locations. Add method(s) to simulate the number of donuts
-// needed based on the table data provided.
 
+//////// Object Constructor to Create New Locations ////////
 function TopPotStore(loc, minCustomer, maxCustomer, avgDonuts) {
 	this.loc = loc;
 	this.minCustomer = minCustomer;
@@ -9,8 +7,13 @@ function TopPotStore(loc, minCustomer, maxCustomer, avgDonuts) {
 	this.avgDonuts = avgDonuts;
 	this.dPurchasedEachHour = [];
 	this.sumDonuts = 0;
+}
 
-	this.donutsPerHour = function(){
+//////// Array Holding all Store Objects ////////
+var storeArray = [];
+
+/// USES STORE DATA TO GENERATE DONUTS/HOUR AND TOTAL ///
+TopPotStore.prototype.donutsPerHour = function(){
 	for(var i = 0; i < 12; i++) {
 		var customersThisHour = Math.floor(Math.random()*(this.maxCustomer - this.minCustomer + 1)) + this.minCustomer;
 		var donutsPurchased = Math.round(customersThisHour * this.avgDonuts);
@@ -19,9 +22,7 @@ function TopPotStore(loc, minCustomer, maxCustomer, avgDonuts) {
 	};
 }
 
-}
-
-// Render function
+/// PUTS STORE INFO INTO TABLE ///
 TopPotStore.prototype.render = function() {
 	var tr = document.createElement('tr');
 	var td = document.createElement('td');
@@ -38,10 +39,12 @@ TopPotStore.prototype.render = function() {
 	totals.innerHTML = this.sumDonuts;
 	tr.appendChild(totals);
 	document.getElementById('body').appendChild(tr);
+
+	storeArray.push(this);
 }
 
 
-// Store locations
+/// INITIAL LOCATIONS + FUNCTION CALLS ///
 var downtown = new TopPotStore("Downtown", 8, 43, 4.50);
 downtown.donutsPerHour();
 downtown.render();
@@ -62,12 +65,18 @@ var ballard = new TopPotStore("Ballard", 8, 58, 3.75);
 ballard.donutsPerHour();
 ballard.render();
 
+/// DROPDOWN MENU
+var dropOpt = function() {
+		
+		for (var i = 0; i < storeArray.length; i++) {
+		var option = document.createElement('option');
+		option.innerHTML = storeArray[i].loc;
+		document.getElementById('dropdown').appendChild(option);
+	}
+}();
 
-// Top Pot Store Array
-var storeArray = [downtown, capitolHill, southLakeUnion, wedgewood, ballard];
 
-// Updating the table with button
-
+/// ADDS NEW STORE ///
 var updateStores = function() {
 	var locInfo = document.getElementById('locationAdd').value;
 	var minCustAdd = document.getElementById('minCustAdd').value;
@@ -77,8 +86,17 @@ var updateStores = function() {
 	newStoreObject.donutsPerHour();
 	newStoreObject.render();
 	storeArray.push(newStoreObject);
-}
 
+	var option = document.createElement('option');
+	option.innerHTML = newStoreObject.loc;
+	document.getElementById('dropdown').appendChild(option);
+
+	// deletes original Downtown row if added. Example only. ///
+	if (locInfo.toUpperCase() === 'DOWNTOWN') {
+		var removeTableRow = document.getElementsByTagName('table')[0];
+		removeTableRow.deleteRow(1);
+	}
+}
 
 // Event listener for Update button
 document.getElementById('buttonUpdate').addEventListener('click', updateStores, false);
