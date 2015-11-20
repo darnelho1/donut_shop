@@ -10,7 +10,7 @@ function TopPotStore(loc, minCustomer, maxCustomer, avgDonuts) {
 }
 
 //////// Array Holding all Store Objects ////////
-var storeArray = [];
+var storeArray = ['tablePlaceholder'];
 
 /// USES STORE DATA TO GENERATE DONUTS/HOUR AND TOTAL ///
 TopPotStore.prototype.donutsPerHour = function(){
@@ -83,22 +83,49 @@ var updateStores = function() {
 	var maxCustAdd = document.getElementById('maxCustAdd').value;
 	var avgDonutsAdd = document.getElementById('avgDonutsAdd').value;
 	var newStoreObject = new TopPotStore(locInfo,parseInt(minCustAdd),parseInt(maxCustAdd),parseInt(avgDonutsAdd));
+
 	newStoreObject.donutsPerHour();
 	newStoreObject.render();
-	storeArray.push(newStoreObject);
+	//storeArray.push(newStoreObject);
 
+	// adds to dropdown
 	var option = document.createElement('option');
 	option.innerHTML = newStoreObject.loc;
 	document.getElementById('dropdown').appendChild(option);
-
-	// deletes original Downtown row if added. Example only. ///
-	if (locInfo.toUpperCase() === 'DOWNTOWN') {
-		var removeTableRow = document.getElementsByTagName('table')[0];
-		removeTableRow.deleteRow(1);
-	}
 }
+
+var changeCurrent = function() {
+	for (var i = 0; i < storeArray.length; i++) {
+		var locInfo = document.getElementById('locationAdd').value;
+		var minCustAdd = document.getElementById('minCustAdd').value;
+		var maxCustAdd = document.getElementById('maxCustAdd').value;
+		var avgDonutsAdd = document.getElementById('avgDonutsAdd').value;
+		
+		if(locInfo === storeArray[i].loc) {
+			body.deleteRow(i); //remove row index that matches array index
+			storeArray.splice(i,1);
+			
+			/*storeArray[i].loc = locInfo;
+			storeArray[i].minCustomer = minCustAdd;
+			storeArray[i].maxCustomer = maxCustAdd;
+			storeArray[i].avgDonuts = avgDonutsAdd;
+
+			storeArray[i].donutsPerHour();
+			storeArray[i].render();*/
+
+			var newStoreObject = new TopPotStore(locInfo,parseInt(minCustAdd),parseInt(maxCustAdd),parseInt(avgDonutsAdd));
+			newStoreObject.donutsPerHour();
+			newStoreObject.render();
+			storeArray.push(newStoreObject);
+			return
+		}
+	}
+
+}
+
 
 // Event listener for Update button
 document.getElementById('buttonUpdate').addEventListener('click', updateStores, false);
+document.getElementById('changeRow').addEventListener('click', changeCurrent,false);
 
 
