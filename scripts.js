@@ -66,14 +66,14 @@ ballard.donutsPerHour();
 ballard.render();
 
 /// DROPDOWN MENU
-var dropOpt = function() {
+/*var dropOpt = function() {
 		
 		for (var i = 0; i < storeArray.length; i++) {
 		var option = document.createElement('option');
 		option.innerHTML = storeArray[i].loc;
 		document.getElementById('dropdown').appendChild(option);
 	}
-}();
+}();*/
 
 
 /// ADDS NEW STORE ///
@@ -89,9 +89,9 @@ var updateStores = function() {
 	//storeArray.push(newStoreObject);
 
 	// adds to dropdown
-	var option = document.createElement('option');
+	/*var option = document.createElement('option');
 	option.innerHTML = newStoreObject.loc;
-	document.getElementById('dropdown').appendChild(option);
+	document.getElementById('dropdown').appendChild(option);*/
 }
 
 var changeCurrent = function() {
