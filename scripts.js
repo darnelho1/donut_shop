@@ -100,7 +100,7 @@ var changeCurrent = function() {
 		var minCustAdd = document.getElementById('minCustAdd').value;
 		var maxCustAdd = document.getElementById('maxCustAdd').value;
 		var avgDonutsAdd = document.getElementById('avgDonutsAdd').value;
-		
+		var counter = 0;
 		if(locInfo === storeArray[i].loc) {
 			body.deleteRow(i); //remove row index that matches array index
 			storeArray.splice(i,1);
@@ -116,9 +116,12 @@ var changeCurrent = function() {
 			var newStoreObject = new TopPotStore(locInfo,parseInt(minCustAdd),parseInt(maxCustAdd),parseInt(avgDonutsAdd));
 			newStoreObject.donutsPerHour();
 			newStoreObject.render();
-			storeArray.push(newStoreObject);
+			//storeArray.push(newStoreObject);
 			return
+			//i = storeArray.length;
 		}
+
+
 	}
 
 }
